@@ -1,6 +1,7 @@
 import { auth } from "../../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
+import Swal from 'sweetalert2';
 export default function SignUp() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -11,11 +12,13 @@ export default function SignUp() {
         .then((userCredential) => {
             const user = userCredential.user;
             console.log(user);
+            Swal.fire('Success', 'User created successfully', 'success');
         }).catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
             console.log(errorCode, errorMessage);
             console.log(error);
+            Swal.fire('Error', errorMessage, 'error');
         });
     }
 

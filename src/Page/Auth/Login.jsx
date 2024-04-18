@@ -1,6 +1,7 @@
 import { auth } from "../../config/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
+import Swal from 'sweetalert2';
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -11,11 +12,13 @@ export default function Login() {
         .then((userCredential) => {
             const user = userCredential.user;
             console.log(user);
+            Swal.fire('Success', 'Login successfully', 'success');
         }).catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
             console.log(errorCode, errorMessage);
             console.log(error);
+            Swal.fire('Error', errorMessage, 'error');
         });
     }
 
