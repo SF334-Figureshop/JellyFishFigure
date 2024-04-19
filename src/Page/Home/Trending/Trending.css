@@ -1,0 +1,23 @@
+.trending-container {
+    max-width: 80vw;
+    margin:  auto;
+    padding: 20px;
+  }
+  
+  .figure-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 3%;
+  }
+  
+  .figure-item {
+    border: 1px solid #ccc;
+    padding: 3%;
+    text-align: center;
+  }
+  
+  .figure-item img {
+    max-width: 100%;
+    height: auto;
+  }
