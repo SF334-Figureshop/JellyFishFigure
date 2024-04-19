@@ -5,7 +5,7 @@ import SignUp from "./Page/Auth/SignUp"
 import Trending from "./Page/Home/Trending/Trending"
 import {  Routes, Route } from "react-router-dom";
 import Footer from "./Component/Navbar/Footer"
-
+import './App.css';
 function App() {
   return (
     <>

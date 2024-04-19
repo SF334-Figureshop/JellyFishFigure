@@ -1,9 +1,7 @@
 import './Navbar.css';
+import SearchBar from './Searchbar';
 import logo from './logo.png';
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import SearchIcon from '@material-ui/icons/Search';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { CiShoppingCart } from "react-icons/ci";
 
 function Navbar(){
     return (
@@ -17,20 +15,10 @@ function Navbar(){
         <li>Trending</li>
         <li>New</li>
         <li className='search-bar'>
-            <TextField
-                id="input-with-icon-textfield"
-                variant="outlined"
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <SearchIcon />
-                        </InputAdornment>
-                    ),
-                }}
-            />
+            <SearchBar />
         </li>
         <li className='Shopping-cart'>
-            <ShoppingCartIcon />
+        <CiShoppingCart size={30}/>
         </li>
         </ul>
         </div>
