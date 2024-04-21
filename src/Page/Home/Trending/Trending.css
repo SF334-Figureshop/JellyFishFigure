@@ -13,6 +13,8 @@
   
   .figure-item {
     border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 5px 5px 8px #888888;
     padding: 3%;
     text-align: center;
   }
@@ -20,4 +22,10 @@
   .figure-item img {
     max-width: 100%;
     height: auto;
+  }
+
+  .figure-grid :hover {
+    transform: scale(1.1);
+    transition: transform 0.5s;
+    
   }
