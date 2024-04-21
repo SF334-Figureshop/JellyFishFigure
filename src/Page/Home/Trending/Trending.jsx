@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../config/firebase.jsx';
-import './Trending.css'; // Import the CSS file
+import './Trending.css'; 
 
 export default function Trending() {
   const [figures, setFigures] = useState([]);
@@ -17,7 +17,7 @@ export default function Trending() {
           const data = doc.data();
           const figure = {
             id: doc.id,
-            image: data.Image,
+            image: data.Image || [],
             name: data.Name,
             price: data.Price,
             status: data.Status,
@@ -36,22 +36,25 @@ export default function Trending() {
   }, []);
 
   return (
-    <div className="trending-container">
-      <h2>Figure Trending</h2>
-      <div className="figure-grid">
-        {figures.map((figure) => (
-          <div key={figure.id} className="figure-item">
+<div className="trending-container">
+  <h2>Figure Trending</h2>
+  <div className="figure-grid">
+  {figures.map((figure) => (
+      <div key={figure.id} className="figure-item">
+        {(figure.image && Array.isArray(figure.image) && figure.image.length > 0 && (
+          <img src={figure.image[0]} alt={figure.name} />
+        ))||figure.image&& (!Array.isArray(figure.image))&&(
             <img src={figure.image} alt={figure.name} />
-            <h3>{figure.name}</h3>
-            <p>Price: {figure.price}</p>
-            <p>Status: {figure.status}</p>
-            <p>Tag: {figure.tag}</p>
-            <button>Add to Cart</button>
-          </div>
-          
-        ))}
-        <button>hello world</button>
+        )   }
+        <h3>{figure.name}</h3>
+        <p>Price: {figure.price}</p>
+        <p>Status: {figure.status}</p>
+        <p>Tag: {figure.tag}</p>
+        <button>Add to Cart</button>
       </div>
-    </div>
+    ))}
+    <button>hello world</button>
+  </div>
+</div>
   );
 }
