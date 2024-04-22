@@ -39,5 +39,10 @@ body {
 }
 
 .MuiOutlinedInput-root {
-    background-color: #fff; /* Background color of the TextField */
+    background-color: #fff; 
 }
+
+.Navbar-menu a {
+    text-decoration: none;
+    color: inherit; 
+  }
