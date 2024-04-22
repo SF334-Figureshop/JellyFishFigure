@@ -1,31 +1,36 @@
 .trending-container {
-    max-width: 80vw;
-    margin:  auto;
-    padding: 20px;
-  }
-  
-  .figure-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, auto);
-    gap: 3%;
-  }
-  
-  .figure-item {
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 5px 5px 8px #888888;
-    padding: 3%;
-    text-align: center;
-  }
-  
-  .figure-item img {
-    max-width: 100%;
-    height: auto;
-  }
+  max-width: 80vw;
+  margin: auto;
+  padding: 20px;
+}
 
-  .figure-grid :hover {
-    transform: scale(1.1);
-    transition: transform 0.5s;
-    
-  }
+.figure-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 3%;
+}
+
+.figure-item {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 5px 5px 8px #888888;
+  padding: 5%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  aspect-ratio: 1 / 1; 
+}
+
+.figure-item img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.figure-grid :hover {
+  transform: scale(1.05);
+  transition: transform 0.5s;
+}
