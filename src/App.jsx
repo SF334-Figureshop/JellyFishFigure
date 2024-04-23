@@ -8,6 +8,7 @@ import Footer from "./Component/Navbar/Footer"
 import New from "./Page/New/New"
 import Cart from "./Page/Cart/Cart"
 import FigureDetails from "./Page/Figure/FigureDetails"
+import Admin from "./Page/Admin/Admin"
 function App() {
   return (
     <>
@@ -19,9 +20,11 @@ function App() {
         <Route path="/trending" element={<Trending />} />
         <Route path ="/new" element={<New />} />
         <Route path="/cart" element={<Cart />} />
-       <Route path="/figure/:id" element={<FigureDetails />} />
+        <Route path="/figure/:id" element={<FigureDetails />} />
+        <Route path="/admin" element={<Admin />} />
     </Routes>
     <Footer />
+    
     </>
   );
 }

@@ -1,0 +1,40 @@
+.gridContainer {
+    padding:  50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr ;
+    grid-template-rows: 1fr;
+    justify-content: space-between;
+    gap: 50px;
+    background: linear-gradient(89.98deg, rgba(0, 161, 224, 0) 74%, rgba(0, 161, 224, 0.18) 96.67%, rgba(0, 161, 224, 0.18)), #820199;
+    
+}
+
+.gridItem {
+    text-align: center;
+    border-radius: 25px;
+    padding: 30px;
+}
+
+.table{
+    margin-top: 50px;
+    width: 90%;
+    border-radius: 25px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.tableCell{
+    width: 100px;
+}
+
+.pagination{
+    display: block;
+    align-items: end;
+}
+
+.tableHead{
+    font-weight:800;
+    font-size: large;
+    
+}
