@@ -15,6 +15,7 @@ const Admin = () => {
   const [allItemType,setallItemType] = useState(0);
   const [outOfStock,setoutOfStock] = useState(0);
   const [inStock,setInstock] = useState(0);
+  let stockCount = 0;
 
   const [figures, setFigures] = useState([]);
 
@@ -36,8 +37,14 @@ const Admin = () => {
             tag: data.Tag,
           };
           fetchedFigures.push(figure);
+
         });
         setFigures(fetchedFigures);
+        setallItemType(fetchedFigures.length)
+        setInstock(fetchedFigures.filter(d => d.status).length)
+        setoutOfStock(fetchedFigures.filter(d => !d.status).length);
+        setallItem(fetchedFigures.reduce((prev, curr) => prev + (typeof curr.stock ==="number"? curr.stock: 0), 0));
+        console.log(fetchedFigures)
       } catch (error) {
         console.error("Error fetching figures:", error);
       }
@@ -45,12 +52,6 @@ const Admin = () => {
 
     fetchFigures();
   }, []);
-
-  useEffect(() => {
-    setallItemType(figures.length);
-    setInstock(allItemType-outOfStock);
-
-  },[allItemType,outOfStock]);
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
