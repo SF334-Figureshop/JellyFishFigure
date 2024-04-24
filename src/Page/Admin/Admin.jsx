@@ -114,7 +114,7 @@ const Admin = () => {
                 <img src={figure.image} alt={figure.name} width="150" height="150"/>
               ) : null
               }</TableCell>
-                <TableCell style={{width: '15%'}} align="center">{figure.price} ฿</TableCell>
+                <TableCell style={{width: '15%'}} align="center">{figure.price} $</TableCell>
                 <TableCell style={{width: '15%'}} align="center">{figure.stock}</TableCell>
                 <TableCell style={{width: '15%'}} align="center">{figure.status? <CheckCircleIcon style={{color:"green"}} />: <CancelIcon style={{color:"red"}}/>}</TableCell>
                 <TableCell style={{width: '15%'}} align="center">{Array.isArray(figure.tag) ? figure.tag.join(', ') : figure.tag}</TableCell>
