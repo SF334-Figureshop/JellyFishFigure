@@ -23,7 +23,7 @@ function App() {
         <Route path="/figure/:id" element={<FigureDetails />} />
         <Route path="/admin" element={<Admin />} />
     </Routes>
-    <Footer />
+   
     
     </>
   );

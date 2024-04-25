@@ -10,13 +10,15 @@
     list-style-type: none;
     gap: 3vw;
     margin-left:5%;
-    margin-right:5%;
+    margin-right:0%;
     color:white;
     padding: 0%;
+    padding-right: 5%;
     margin-top: 0%;
     margin-bottom: 0%;
     font-size: large;
     font-weight: bold;
+
 }
 
 .Navbar-menu li {

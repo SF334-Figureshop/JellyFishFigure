@@ -10,8 +10,7 @@ export default function Home(){
         <Trending />
         <div className='border-line'></div>
         <div>
-        <New />
-        <button>click me</button>
+        
         </div>
         
         

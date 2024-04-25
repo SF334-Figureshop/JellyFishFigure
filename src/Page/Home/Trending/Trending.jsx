@@ -47,9 +47,8 @@ export default function Trending() {
                 <img src={figure.image} alt={figure.name} />
               ) : null}
               <h3>{figure.name}</h3>
-              <p>Price: {figure.price}</p>
-              <p>Status: {figure.status}</p>
-              <p>Tag: {figure.tag}</p>
+              <p>Price: {figure.price} $</p>
+              <p>Status: {figure.status?"in stock":"sold out"}</p>
               <button>Add to Cart</button>
             </div>
           </Link>
