@@ -23,7 +23,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/figure/:id" element={<FigureDetails />} />
         <Route path="/admin" element={<Admin />} />
-        <Route path="/editfigure" element={<EditFigure />} />
+        <Route path="/editfigure/:id" element={<EditFigure />} />
     </Routes>
    
     
