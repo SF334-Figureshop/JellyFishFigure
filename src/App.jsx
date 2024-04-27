@@ -9,6 +9,7 @@ import New from "./Page/New/New"
 import Cart from "./Page/Cart/Cart"
 import FigureDetails from "./Page/Figure/FigureDetails"
 import Admin from "./Page/Admin/Admin"
+import EditFigure from "./Page/EditFigure/EditFigure"
 function App() {
   return (
     <>
@@ -22,6 +23,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/figure/:id" element={<FigureDetails />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/editfigure" element={<EditFigure />} />
     </Routes>
    
     
