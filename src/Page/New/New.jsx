@@ -61,7 +61,7 @@ export default function New() {
           <button>Add to Cart</button>
         </div>
       ))}
-      <button>hello world</button>
+  
     </div>
   </div>
   <Footer />

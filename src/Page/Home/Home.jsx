@@ -11,7 +11,7 @@ export default function Home(){
             
         </div>
         <Trending />
-        <div className='border-line'></div>
+       
         <div>
         
         </div>

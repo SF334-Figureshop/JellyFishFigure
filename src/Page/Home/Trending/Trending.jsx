@@ -53,7 +53,6 @@ export default function Trending() {
             </div>
           </Link>
         ))}
-        <button>hello world</button>
       </div>
     </div>
   );

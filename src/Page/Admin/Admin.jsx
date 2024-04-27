@@ -22,7 +22,7 @@ const Admin = () => {
   useEffect(() => {
     const fetchFigures = async () => {
       try {
-        const collectionRef = collection(db, "Figure-Trending");
+        const collectionRef = collection(db, "Figure-List");
         const querySnapshot = await getDocs(collectionRef);
         const fetchedFigures = [];
         querySnapshot.forEach((doc) => {
