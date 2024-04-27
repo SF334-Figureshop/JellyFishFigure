@@ -3,10 +3,6 @@ import SearchBar from './Searchbar';
 import logo from './logo.png';
 import { CiShoppingCart } from "react-icons/ci";
 import { Link } from 'react-router-dom';
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import SearchIcon from '@material-ui/icons/Search';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 function Navbar() {
   return (

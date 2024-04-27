@@ -17,7 +17,6 @@
     "@material-ui/styles": "^4.11.5",
     "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.2.5",
-    "@mui/material": "^5.2.5",
     "@reduxjs/toolkit": "^2.2.3",
     "firebase": "^10.11.0",
     "nuka-carousel": "^8.0.1",
