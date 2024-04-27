@@ -21,6 +21,7 @@ export default function Trending() {
             name: data.Name,
             price: data.Price,
             status: data.Status,
+            stock: data.Stock,
             tag: data.Tag,
           };
           fetchedFigures.push(figure);
@@ -48,7 +49,7 @@ export default function Trending() {
               ) : null}
               <h3>{figure.name}</h3>
               <p>Price: {figure.price} $</p>
-              <p>Status: {figure.status?"in stock":"sold out"}</p>
+              Status: {figure.stock >0 ? "In Stock" : <span style={{ color: 'red' }}>Sold out</span>}
               <button>Add to Cart</button>
             </div>
           </Link>

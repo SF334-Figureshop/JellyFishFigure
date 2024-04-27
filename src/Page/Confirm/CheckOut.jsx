@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { doc, updateDoc, increment } from 'firebase/firestore';
+import { db } from '../../config/firebase';
+import {  removeFromCart } from "../Ecommerce/CartSlice"
 import {
   Container,
   Paper,
@@ -24,8 +27,8 @@ export default function CheckoutPage() {
   const [city, setCity] = useState('');
   const [postalCode, setPostalCode] = useState('');
 
+const dispatch = useDispatch();
   const handleCheckout = () => {
-    // Perform checkout logic here
     console.log('Checkout:', {
       firstName,
       lastName,
@@ -35,8 +38,25 @@ export default function CheckoutPage() {
       postalCode,
       cart,
     });
+    updateDb();
   };
 
+  const updateDb = async () => {
+    try {
+      const updatePromises = cart.map((item) => {
+        const figureRef = doc(db, 'Figure-List', item.id);
+        return updateDoc(figureRef, {
+          Stock: increment(-item.quantity),
+        });
+      });
+      await Promise.all(updatePromises);
+      cart.forEach((item) => {
+        dispatch(removeFromCart({ id: item.id }));
+      });
+    } catch (error) {
+      console.error('Error updating stock:', error);
+    }
+  };
   const calculateTotal = () => {
     return cart.reduce((total, item) => total + item.Price * item.quantity, 0);
   };

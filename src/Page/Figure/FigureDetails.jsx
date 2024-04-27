@@ -53,7 +53,7 @@ export default function FigureDetails() {
           </Carousel>
         );
       } else {
-        return <img src={figure.Image} alt={figure.Name} />;
+        return <img src={figure.Image} alt={figure.Name} className="image-single"/>;
       }
     }
     return null;
@@ -72,7 +72,7 @@ export default function FigureDetails() {
             <h2>{figure.Name}</h2>
             <p className="price">Price: {figure.Price}</p>
             <p className="status">
-              Status: {figure.Status ? "Instock" : "Sold out"}
+              Status: {figure.Stock >0 ? "Instock" : <span style={{ color: 'red' }}>Sold out</span>}
             </p>
             <p className="stock">Stock: {figure.Stock}</p>
             <div className="tags">

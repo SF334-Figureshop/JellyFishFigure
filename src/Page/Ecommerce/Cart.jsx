@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import {  useNavigate } from 'react-router-dom';
 import {
   removeFromCart,
   increaseQuantity,
@@ -20,6 +21,7 @@ import {
 export default function Cart() {
   const cart = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleRemoveFromCart = (itemId) => {
     dispatch(removeFromCart({ id: itemId }));
@@ -107,7 +109,7 @@ export default function Cart() {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => console.log("Buy button clicked")}
+                      onClick={() => navigate('/checkout')}
                     >
                       Buy
                     </Button>
