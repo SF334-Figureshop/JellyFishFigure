@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../config/firebase";
+import Footer from "../../Component/Navbar/Footer";
 
 export default function New() {
     const [figures, setFigures] = useState([]);
@@ -41,6 +42,7 @@ export default function New() {
     }, []);
   
     return (
+      <>
   <div className="trending-container">
     <h2>New </h2>
     <div className="figure-grid">
@@ -62,5 +64,7 @@ export default function New() {
       <button>hello world</button>
     </div>
   </div>
+  <Footer />
+  </>
     );
   }

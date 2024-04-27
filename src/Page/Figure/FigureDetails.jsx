@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import './FigureDetails.css';
+import QuantityButton from '../../Component/Navbar/Button/Counter';
 
 export default function FigureDetails() {
   const { id } = useParams();
@@ -63,6 +64,7 @@ export default function FigureDetails() {
       <div className="tags">
   <span className="tag">Tag : {figure.Tag.join(', ')}</span>
 </div>
+<QuantityButton />  
       <button>Add to Cart</button>
       </div>
       </div>
