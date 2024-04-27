@@ -13,9 +13,7 @@ import { addToCart } from '../Ecommerce/CartSlice'
 export default function FigureDetails() {
   const { id } = useParams();
   const [figure, setFigure] = useState(null);
-  const dispatch = useDispatch(); // Import and initialize the dispatch function
-  const cartItems = useSelector((state) => state.cart.items); 
-  
+
   useEffect(() => {
     const fetchFigure = async () => {
       try {

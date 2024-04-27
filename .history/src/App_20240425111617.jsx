@@ -6,7 +6,7 @@ import Trending from "./Page/Home/Trending/Trending"
 import {  Routes, Route } from "react-router-dom";
 import Footer from "./Component/Navbar/Footer"
 import New from "./Page/New/New"
-import Cart from "./Page/Ecommerce/Cart"
+import Cart from "./Page/Cart/Cart"
 import FigureDetails from "./Page/Figure/FigureDetails"
 import Admin from "./Page/Admin/Admin"
 function App() {

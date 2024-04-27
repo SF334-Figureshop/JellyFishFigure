@@ -3,19 +3,14 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import { useEffect, useState } from 'react';
 import { Carousel } from 'react-responsive-carousel';
-import "react-responsive-carousel/lib/styles/carousel.min.css"; 
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import './FigureDetails.css';
 import QuantityButton from '../../Component/Navbar/Button/Counter';
-
-import{useDispatch ,useSelector} from 'react-redux';
-import { addToCart } from '../Ecommerce/CartSlice'
 
 export default function FigureDetails() {
   const { id } = useParams();
   const [figure, setFigure] = useState(null);
-  const dispatch = useDispatch(); // Import and initialize the dispatch function
-  const cartItems = useSelector((state) => state.cart.items); 
-  
+
   useEffect(() => {
     const fetchFigure = async () => {
       try {
@@ -58,10 +53,6 @@ export default function FigureDetails() {
     return null;
   };
 
-  const handleAddToCart = () => {
-    dispatch(addToCart(figure));
-  };
-
   return (<>
     <div className="figure-upper">
       {renderImages()}
@@ -74,7 +65,7 @@ export default function FigureDetails() {
   <span className="tag">Tag : {figure.Tag.join(', ')}</span>
 </div>
 <QuantityButton />  
-      <button onClick={handleAddToCart}>Add to Cart</button>
+      <button>Add to Cart</button>
       </div>
       </div>
       <p className="description">Description: {figure.Description}</p>

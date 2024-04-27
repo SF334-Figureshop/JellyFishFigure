@@ -9,7 +9,7 @@ export default function New() {
     useEffect(() => {
       const fetchFigures = async () => {
         try {
-          const collectionRef = collection(db, "Figure-List");
+          const collectionRef = collection(db, "Figure-Trending");
           const querySnapshot = await getDocs(collectionRef);
           const fetchedFigures = [];
           const today = new Date();

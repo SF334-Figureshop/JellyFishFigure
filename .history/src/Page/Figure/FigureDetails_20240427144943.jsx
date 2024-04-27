@@ -8,14 +8,12 @@ import './FigureDetails.css';
 import QuantityButton from '../../Component/Navbar/Button/Counter';
 
 import{useDispatch ,useSelector} from 'react-redux';
-import { addToCart } from '../Ecommerce/CartSlice'
+import { addToCart } from '../Ecommerce/Store';
 
 export default function FigureDetails() {
   const { id } = useParams();
   const [figure, setFigure] = useState(null);
-  const dispatch = useDispatch(); // Import and initialize the dispatch function
-  const cartItems = useSelector((state) => state.cart.items); 
-  
+
   useEffect(() => {
     const fetchFigure = async () => {
       try {
@@ -58,7 +56,7 @@ export default function FigureDetails() {
     return null;
   };
 
-  const handleAddToCart = () => {
+  const addToCart = () => {
     dispatch(addToCart(figure));
   };
 
@@ -74,7 +72,7 @@ export default function FigureDetails() {
   <span className="tag">Tag : {figure.Tag.join(', ')}</span>
 </div>
 <QuantityButton />  
-      <button onClick={handleAddToCart}>Add to Cart</button>
+      <button onClick={addToCart}>Add to Cart</button>
       </div>
       </div>
       <p className="description">Description: {figure.Description}</p>

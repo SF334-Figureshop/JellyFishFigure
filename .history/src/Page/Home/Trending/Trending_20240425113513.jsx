@@ -10,7 +10,7 @@ export default function Trending() {
   useEffect(() => {
     const fetchFigures = async () => {
       try {
-        const collectionRef = collection(db, "Figure-List");
+        const collectionRef = collection(db, "Figure-Trending");
         const querySnapshot = await getDocs(collectionRef);
         const fetchedFigures = [];
         querySnapshot.forEach((doc) => {
