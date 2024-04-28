@@ -9,7 +9,7 @@ export default function New() {
     useEffect(() => {
       const fetchFigures = async () => {
         try {
-          const collectionRef = collection(db, "Figure-Trending");
+          const collectionRef = collection(db, "Figure-List");
           const querySnapshot = await getDocs(collectionRef);
           const fetchedFigures = [];
           const today = new Date();
@@ -61,7 +61,7 @@ export default function New() {
           <button>Add to Cart</button>
         </div>
       ))}
-      <button>hello world</button>
+  
     </div>
   </div>
   <Footer />

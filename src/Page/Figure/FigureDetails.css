@@ -17,11 +17,17 @@
     margin-top: 5%;
 }
 
-.image-carousel {
+.image-carousel  {
     max-width: 30%;
     max-height: 30%;
     margin-left: 5%;
 
+}
+
+.image-single {
+    max-width: 30%;
+    max-height: 30%;
+    margin-left: 5%;
 }
 
 .description {

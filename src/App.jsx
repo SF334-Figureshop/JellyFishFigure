@@ -6,10 +6,11 @@ import Trending from "./Page/Home/Trending/Trending"
 import {  Routes, Route } from "react-router-dom";
 import Footer from "./Component/Navbar/Footer"
 import New from "./Page/New/New"
-import Cart from "./Page/Cart/Cart"
+import Cart from "./Page/Ecommerce/Cart"
 import FigureDetails from "./Page/Figure/FigureDetails"
 import Admin from "./Page/Admin/Admin"
 import EditFigure from "./Page/EditFigure/EditFigure"
+import CheckOut from "./Page/Confirm/CheckOut"
 function App() {
   return (
     <>
@@ -24,6 +25,7 @@ function App() {
         <Route path="/figure/:id" element={<FigureDetails />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/editfigure" element={<EditFigure />} />
+        <Route path="/checkout" element={<CheckOut />} />
     </Routes>
    
     

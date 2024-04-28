@@ -7,8 +7,11 @@ export default function Home(){
         <div className="Home-container">
             <h1>Welcome to JellyFish</h1>
         </div>
+        <div>
+            
+        </div>
         <Trending />
-        <div className='border-line'></div>
+       
         <div>
         
         </div>
