@@ -3,7 +3,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../config/firebase.jsx';
 import { Link } from 'react-router-dom';
 import './Trending.css';
-
+import { Button } from '@material-ui/core';
 export default function Trending() {
   const [figures, setFigures] = useState([]);
 
@@ -50,7 +50,7 @@ export default function Trending() {
               <h3>{figure.name}</h3>
               <p>Price: {figure.price} $</p>
               Status: {figure.stock >0 ? "In Stock" : <span style={{ color: 'red' }}>Sold out</span>}
-              <button>Add to Cart</button>
+              <Button variant='contained' >Add to Cart</Button>
             </div>
           </Link>
         ))}
