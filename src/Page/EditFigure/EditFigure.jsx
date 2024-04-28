@@ -69,15 +69,10 @@ const EditFigure = () => {
         setImageUrl(objectUrl);        
 
     }
-    useEffect(()=>{
-        console.log(selectedFile)
-        console.log(imageUrl)            
-    },[selectedFile,imageUrl]);
-
     const handleSubmit = async () => {
         setTag(Tag.map(d => d.trim()))
         const uploadTask =  await uploadBytes(FigurePicRef, selectedFile)
-        console.log('Uploaded a blob or file!');
+        console.log('Uploaded a file!');
         const downloadURL = await getDownloadURL(FigurePicRef)
         await setDoc(doc(db, "Figure-List", id), {
                     Name: Name,

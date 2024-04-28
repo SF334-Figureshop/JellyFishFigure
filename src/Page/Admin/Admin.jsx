@@ -63,7 +63,6 @@ const Admin = () => {
   useEffect(()=>{
     if(figures[0] && Number(figures[0].id.substring(6)) !== 1 || figures.length <1){
       setnewFigureURL(`Figure1`) 
-      console.log(newFigureURL)
       
     } else {
       for(let i = 0 ; i < figures.length-1 ; i++){
