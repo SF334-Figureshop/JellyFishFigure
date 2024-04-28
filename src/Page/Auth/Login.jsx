@@ -25,6 +25,7 @@ export default function Login() {
         const user = userCredential.user;
         console.log(user);
         Swal.fire('Success', 'Login successfully', 'success');
+        navigate('/admin');
       })
       .catch((error) => {
         const errorCode = error.code;

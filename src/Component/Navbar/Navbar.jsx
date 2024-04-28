@@ -37,6 +37,11 @@ function Navbar() {
         <li>
           <Link to="/new">New</Link>
         </li>
+        {user? (
+          <li>
+            <Link to="/admin">Admin</Link>
+          </li>
+        ) : null}
         <li className="Shopping-cart">
           <Link to="/cart">
             <ShoppingCartIcon />

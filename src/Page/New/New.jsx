@@ -46,23 +46,26 @@ export default function New() {
   <div className="trending-container">
     <h2>New </h2>
     <div className="figure-grid">
-    {figures.map((figure) => (
-        <div key={figure.id} className="figure-item">
-          {(figure.image && Array.isArray(figure.image) && figure.image.length > 0 && (
-            <img src={figure.image[0]} alt={figure.name} />
-          ))||figure.image&& (!Array.isArray(figure.image))&&(
-              <img src={figure.image} alt={figure.name} />
-          )   }
-          <h3>{figure.name}</h3>
-          <p>Price: {figure.price}</p>
-          <p>Status: {figure.status}</p>
-          <p>Tag: {figure.tag}</p>
-          <p>Release Date: {figure.release ? figure.release.toLocaleDateString() : 'N/A'}</p>
-          <button>Add to Cart</button>
-        </div>
-      ))}
-  
-    </div>
+  {figures.length > 0 ? (
+    figures.map((figure) => (
+      <div key={figure.id} className="figure-item">
+        {(figure.image && Array.isArray(figure.image) && figure.image.length > 0 && (
+          <img src={figure.image[0]} alt={figure.name} />
+        ))||figure.image&& (!Array.isArray(figure.image))&&(
+            <img src={figure.image} alt={figure.name} />
+        )}
+        <h3>{figure.name}</h3>
+        <p>Price: {figure.price}</p>
+        <p>Status: {figure.status}</p>
+        <p>Tag: {figure.tag}</p>
+        <p>Release Date: {figure.release ? figure.release.toLocaleDateString() : 'N/A'}</p>
+        <button>Add to Cart</button>
+      </div>
+    ))
+  ) : (
+    <p>Sorry, there are no new figures. Please come again later.</p>
+  )}
+</div>
   </div>
   <Footer />
   </>

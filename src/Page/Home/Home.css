@@ -4,11 +4,21 @@
     padding: 0%;
 }
 
-h1 {
-    margin : 0%;
-}
 
-.border-line {
-    border-top :1px black solid;
-    margin-top: 15vh;
-}
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background-color: #f5f5f5;
+  }
+  
+  .home-image {
+    max-width: 100%;
+    
+    margin-bottom: 1rem;
+  }
+  
+  .home-spacer {
+    height: 2rem;
+  }
