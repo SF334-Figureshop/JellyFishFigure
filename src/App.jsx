@@ -26,6 +26,7 @@ function App() {
         <Route path="/admin" element={<Admin />} />
         <Route path="/editfigure" element={<EditFigure />} />
         <Route path="/checkout" element={<CheckOut />} />
+        <Route path="/editfigure/:id" element={<EditFigure />} />
     </Routes>
    
     

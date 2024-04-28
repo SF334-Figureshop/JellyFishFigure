@@ -8,6 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { TablePagination, Table , Paper, TableHead, TableRow, TableCell, TableBody, TableContainer} from '@material-ui/core';
+import { Link } from "react-router-dom";
 
 const Admin = () => {
 
@@ -15,6 +16,7 @@ const Admin = () => {
   const [allItemType,setallItemType] = useState(0);
   const [outOfStock,setoutOfStock] = useState(0);
   const [inStock,setInstock] = useState(0);
+  const [newFigureURL,setnewFigureURL] = useState("")
 
   const [figures, setFigures] = useState([]);
 
@@ -39,24 +41,40 @@ const Admin = () => {
 
         });
         setFigures(fetchedFigures);
-        setallItemType(fetchedFigures.length)
-        setInstock(fetchedFigures.filter(d => d.status).length)
-        setoutOfStock(fetchedFigures.filter(d => !d.status).length);
-        setallItem(fetchedFigures.reduce((prev, curr) => prev + (typeof curr.stock ==="number"? curr.stock: 0), 0));
+
       } catch (error) {
         console.error("Error fetching figures:", error);
       }
     };
 
     fetchFigures();
+      
+    
   }, []);
 
   useEffect(() => {
     setallItemType(figures.length);
     setInstock(figures.filter(d => d.status).length);
     setoutOfStock(figures.filter(d => !d.status).length);
-    setallItem(figures.reduce((prev, curr) => prev + (typeof curr.stock ==="number"? curr.stock: 0), 0));
+    setallItem(figures.reduce((prev, curr) => prev + (typeof curr.stock ==="number"? curr.stock: 0), 0));      
+        
   }, [figures]);
+
+  useEffect(()=>{
+    if(figures[0] && Number(figures[0].id.substring(6)) !== 1 || figures.length <1){
+      setnewFigureURL(`Figure1`) 
+      
+    } else {
+      for(let i = 0 ; i < figures.length-1 ; i++){
+        if(Number(figures[i].id.substring(6))+1 !== Number(figures[i+1].id.substring(6))) {
+          setnewFigureURL(`Figure${Number(figures[i].id.substring(6))+1}`);
+          break;
+        }
+        setnewFigureURL(`Figure${allItemType+1}`);
+      }
+      
+  }
+  },[allItemType,figures])
  
 
   const [page, setPage] = useState(0);
@@ -104,7 +122,7 @@ const Admin = () => {
           <TableCell align="center"><div className={style.tableHead}>จำนวน</div></TableCell>
           <TableCell align="center"><div className={style.tableHead}>ยังเหลือในคลัง</div></TableCell>
           <TableCell align="center"><div className={style.tableHead}>tag</div></TableCell>
-          <TableCell><AddIcon style={{cursor: "pointer"}} onClick={() => {console.log("hidden secret")}}></AddIcon></TableCell>
+          <TableCell><Link to={`/EditFigure/${newFigureURL}`}><AddIcon style={{cursor: "pointer",color:"black"}}></AddIcon></Link></TableCell>
           </TableRow>
         </TableHead>
       <TableBody>
@@ -126,9 +144,9 @@ const Admin = () => {
                 <TableCell style={{width: '15%'}} align="center">{figure.status? <CheckCircleIcon style={{color:"green"}} />: <CancelIcon style={{color:"red"}}/>}</TableCell>
                 <TableCell style={{width: '15%'}} align="center">{Array.isArray(figure.tag) ? figure.tag.join(', ') : figure.tag}</TableCell>
                 <TableCell style={{width: '10%'}}>
-                  <SettingsIcon style={{marginRight: 10, cursor: "pointer"}} onClick={() => {console.log("hidden secret")}}></SettingsIcon>
+                  <Link key={figure.id} to={`/EditFigure/${figure.id}`}><SettingsIcon style={{marginRight: 10, cursor: "pointer",color:"black"}}></SettingsIcon></Link>
                   <DeleteIcon style={{cursor: "pointer"}} onClick={async () => {
-                    await deleteDoc(doc(db, "Figure-Trending", figure.id));
+                    await deleteDoc(doc(db, "Figure-List", figure.id));
                     setFigures(figures.filter(fig => fig.id !== figure.id));
                     }}></DeleteIcon>
                 </TableCell>
