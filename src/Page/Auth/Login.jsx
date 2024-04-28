@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { auth } from "../../config/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import {
   Container,
@@ -16,6 +17,7 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const navigate = useNavigate();
   const singIn = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
@@ -65,6 +67,11 @@ export default function Login() {
                   <Button type="submit" variant="contained" color="primary" fullWidth>
                     Login
                   </Button>
+                </Grid>
+                <Grid item xs={12}>
+                <Button variant="contained" color="secondary" fullWidth onClick={()=>navigate('/sign-up')}>
+                  Sign Up
+                </Button>
                 </Grid>
               </Grid>
             </form>
