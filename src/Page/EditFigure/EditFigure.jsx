@@ -10,12 +10,18 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { useNavigate } from "react-router-dom";
+import { getStorage, ref, uploadBytes , getDownloadURL } from 'firebase/storage';
 
 
 const EditFigure = () => {
     
     const { id } = useParams();
     const navigate = useNavigate();
+    
+    const storage = getStorage();
+    const FigurePicRef = ref(storage,`image/${id}.jpg`)
+    const [PicURL,setPicURL] = useState()
+   
 
 
     const [Name,setName] = useState("");
@@ -60,22 +66,30 @@ const EditFigure = () => {
         const file = event.target.files[0];
         setSelectedFile(file);
         const objectUrl = URL.createObjectURL(file);
-        setImageUrl(objectUrl);
+        setImageUrl(objectUrl);        
 
     }
+    useEffect(()=>{
+        console.log(selectedFile)
+        console.log(imageUrl)            
+    },[selectedFile,imageUrl]);
 
     const handleSubmit = async () => {
         setTag(Tag.map(d => d.trim()))
+        const uploadTask =  await uploadBytes(FigurePicRef, selectedFile)
+        console.log('Uploaded a blob or file!');
+        const downloadURL = await getDownloadURL(FigurePicRef)
         await setDoc(doc(db, "Figure-List", id), {
-            Name: Name,
-            Image: Image,
-            Price: Number(Price),
-            Status: Stock>0 ? true : false,
-            Stock: Stock>0? Number(Stock) : 0,
-            ReleaseDate: Timestamp.fromDate(ReleaseDate.toDate()),
-            Tag: Tag,
-            Description: Description,
-        })
+                    Name: Name,
+                    Image: downloadURL,
+                    Price: Number(Price),
+                    Status: Stock>0 ? true : false,
+                    Stock: Stock>0? Number(Stock) : 0,
+                    ReleaseDate: Timestamp.fromDate(ReleaseDate.toDate()),
+                    Tag: Tag,
+                    Description: Description,
+                })
+            ;
         navigate("/Admin");
     }
 
