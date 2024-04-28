@@ -39,7 +39,8 @@ const EditFigure = () => {
             const docSnapshot = await getDoc(docRef);
             if(docSnapshot.exists()){
               const data = docSnapshot.data();
-              setImageUrl(data.Image != undefined ? data.Image : "")
+              setImageUrl(data.Image && Array.isArray(data.Image) && data.Image.length > 0 ? data.Image[0] :  
+              data.Image && !Array.isArray(data.Image) ? data.Image: null)
               setName(data.Name);
               setPrice(data.Price)
               setStock(data.Stock)
