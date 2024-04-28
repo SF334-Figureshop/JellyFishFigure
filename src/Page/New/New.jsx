@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../config/firebase";
+import Footer from "../../Component/Navbar/Footer";
 
 export default function New() {
     const [figures, setFigures] = useState([]);
@@ -8,7 +9,7 @@ export default function New() {
     useEffect(() => {
       const fetchFigures = async () => {
         try {
-          const collectionRef = collection(db, "Figure-Trending");
+          const collectionRef = collection(db, "Figure-List");
           const querySnapshot = await getDocs(collectionRef);
           const fetchedFigures = [];
           const today = new Date();
@@ -41,6 +42,7 @@ export default function New() {
     }, []);
   
     return (
+      <>
   <div className="trending-container">
     <h2>New </h2>
     <div className="figure-grid">
@@ -59,8 +61,10 @@ export default function New() {
           <button>Add to Cart</button>
         </div>
       ))}
-      <button>hello world</button>
+  
     </div>
   </div>
+  <Footer />
+  </>
     );
   }
