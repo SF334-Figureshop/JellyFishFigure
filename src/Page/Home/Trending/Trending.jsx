@@ -27,6 +27,7 @@ export default function Trending() {
           fetchedFigures.push(figure);
         });
         setFigures(fetchedFigures);
+        
       } catch (error) {
         console.error("Error fetching figures:", error);
       }
@@ -49,7 +50,7 @@ export default function Trending() {
               ) : null}
               <h3>{figure.name}</h3>
               <p>Price: {figure.price} $</p>
-              Status: {figure.stock >0 ? "In Stock" : <span style={{ color: 'red' }}>Sold out</span>}
+              Status: {figure.status ? "In Stock" : <div style={{ color: 'red' }}>Sold out</div> }
               <Button variant='contained' >Add to Cart</Button>
             </div>
           </Link>

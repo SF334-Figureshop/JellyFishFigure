@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import Footer from "../../Component/Navbar/Footer";
-
+import { GiStockpiles } from "react-icons/gi";
+import { Link } from "react-router-dom";
+import { Button } from "@material-ui/core";
 export default function New() {
     const [figures, setFigures] = useState([]);
 
@@ -26,7 +28,8 @@ export default function New() {
               price: data.Price,
               status: data.Status,
               tag: data.Tag,
-              release: data.ReleaseDate ? data.ReleaseDate.toDate() : null
+              release: data.ReleaseDate ? data.ReleaseDate.toDate() : null,
+              stock: data.Stock,
             };
             fetchedFigures.push(figure);
         }
@@ -49,6 +52,7 @@ export default function New() {
   {figures.length > 0 ? (
     figures.map((figure) => (
       <div key={figure.id} className="figure-item">
+        <Link to={`/figure/${figure.id}`}>
         {(figure.image && Array.isArray(figure.image) && figure.image.length > 0 && (
           <img src={figure.image[0]} alt={figure.name} />
         ))||figure.image&& (!Array.isArray(figure.image))&&(
@@ -56,10 +60,11 @@ export default function New() {
         )}
         <h3>{figure.name}</h3>
         <p>Price: {figure.price}</p>
-        <p>Status: {figure.status}</p>
+        <p>Status: {figure.status ? "In Stock" : <div style={{ color: 'red' }}>Sold out</div> }</p>
         <p>Tag: {figure.tag}</p>
         <p>Release Date: {figure.release ? figure.release.toLocaleDateString() : 'N/A'}</p>
-        <button>Add to Cart</button>
+        </Link>
+        <Button variant="contained">Add to Cart</Button>
       </div>
     ))
   ) : (

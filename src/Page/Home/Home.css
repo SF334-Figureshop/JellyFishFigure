@@ -2,6 +2,7 @@
     background-color: #ebebeb;
     margin: 0%;
     padding: 0%;
+    margin-bottom: 20vh;
 }
 
 
@@ -15,7 +16,6 @@
   
   .home-image {
     max-width: 100%;
-    
     margin-bottom: 1rem;
   }
   

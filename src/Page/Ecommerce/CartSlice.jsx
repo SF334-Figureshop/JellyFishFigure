@@ -15,6 +15,7 @@ const cartSlice = createSlice({
         itemExists.quantity += 1;
       }
      } else {
+      if (action.payload.Stock > 0){
         state.items.push({
           id: action.payload.id,
           name: action.payload.Name,
@@ -24,6 +25,7 @@ const cartSlice = createSlice({
           Stock: action.payload.Stock,
         });
       }
+    }
     },
     removeFromCart: (state, action) => {
       state.items = state.items.filter((item) => item.id !== action.payload.id);
