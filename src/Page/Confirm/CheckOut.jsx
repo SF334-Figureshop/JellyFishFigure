@@ -27,7 +27,7 @@ export default function CheckoutPage() {
   const [city, setCity] = useState('');
   const [postalCode, setPostalCode] = useState('');
 
-const dispatch = useDispatch();
+const  dispatch = useDispatch();
   const handleCheckout = () => {
     console.log('Checkout:', {
       firstName,
@@ -43,20 +43,20 @@ const dispatch = useDispatch();
 
   const updateDb = async () => {
     try {
-      const updatePromises = cart.map((item) => {
-        const figureRef = doc(db, 'Figure-List', item.id);
-        return updateDoc(figureRef, {
-          Stock: increment(-item.quantity),
+        const updatePromises = cart.map((item) => {
+          const figureRef = doc(db, 'Figure-List', item.id);
+          return updateDoc(figureRef, {
+            Stock: increment(-item.quantity),
+          });
         });
-      });
-      await Promise.all(updatePromises);
-      cart.forEach((item) => {
-        dispatch(removeFromCart({ id: item.id }));
-      });
-    } catch (error) {
-      console.error('Error updating stock:', error);
-    }
-  };
+        await Promise.all(updatePromises);
+        cart.forEach((item) => {
+            dispatch(removeFromCart({ id: item.id }));
+          });
+        } catch (error) {
+          console.error('Error updating stock:', error);
+        }
+      };
   const calculateTotal = () => {
     return cart.reduce((total, item) => total + item.Price * item.quantity, 0);
   };
