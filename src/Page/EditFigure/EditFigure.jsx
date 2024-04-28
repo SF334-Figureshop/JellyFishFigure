@@ -11,6 +11,7 @@ import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { useNavigate } from "react-router-dom";
 import { getStorage, ref, uploadBytes , getDownloadURL } from 'firebase/storage';
+import Snackbar from '@mui/material/Snackbar';
 
 
 const EditFigure = () => {
@@ -20,9 +21,8 @@ const EditFigure = () => {
     
     const storage = getStorage();
     const FigurePicRef = ref(storage,`image/${id}.jpg`)
-    const [PicURL,setPicURL] = useState()
-   
 
+    const [open,setopen] = useState(false)
 
     const [Name,setName] = useState("");
     const [Price,setPrice] = useState("");
@@ -62,21 +62,33 @@ const EditFigure = () => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
 
-    const handleFileChange = (event) => {
+    const handleClose = () => {
+        setopen(false)
+    }
+
+    const handleFileChange =  async (event) => {
         const file = event.target.files[0];
         setSelectedFile(file);
-        const objectUrl = URL.createObjectURL(file);
-        setImageUrl(objectUrl);        
+        
+        // Check if a file is selected
+        if (file) {
+            try {
+                await uploadBytes(FigurePicRef, file);
+                const downloadURL = await getDownloadURL(FigurePicRef);
+                setImageUrl(downloadURL);
+                setImageChange(true);
+            } catch (error) {
+                console.error("Error uploading file:", error);
+            }
+        }        
 
     }
     const handleSubmit = async () => {
         setTag(Tag.map(d => d.trim()))
-        const uploadTask =  await uploadBytes(FigurePicRef, selectedFile)
-        console.log('Uploaded a file!');
-        const downloadURL = await getDownloadURL(FigurePicRef)
+        setopen(true)
         await setDoc(doc(db, "Figure-List", id), {
                     Name: Name,
-                    Image: downloadURL,
+                    Image: imageUrl,
                     Price: Number(Price),
                     Status: Stock>0 ? true : false,
                     Stock: Stock>0? Number(Stock) : 0,
@@ -94,6 +106,13 @@ const EditFigure = () => {
     <>
     <Paper  elevation={10} className={style.Formcontainer}>
     <div><h1>Edit Figure</h1></div>
+    <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical:"bottom", horizontal:"right" }}
+        message="Note archived"
+      />
         
     <FormControl onSubmit={handleSubmit} style={{width:"100%"}}>
         <img src={imageUrl} style={{maxHeight:"600px", maxWidth:"600px",objectFit:"contain"}} />
