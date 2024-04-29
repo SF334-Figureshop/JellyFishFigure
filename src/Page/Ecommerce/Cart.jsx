@@ -61,7 +61,7 @@ export default function Cart() {
                     </TableCell>
                     <TableCell align="center">
                       <img
-                        src={item.Image}
+                        src={item.Image[0]}
                         style={{
                           width: "150px",
                           height: "150px",
