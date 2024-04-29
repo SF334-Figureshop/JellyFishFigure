@@ -61,19 +61,25 @@ const Admin = () => {
   }, [figures]);
 
   useEffect(()=>{
-    if(figures[0] && Number(figures[0].id.substring(6)) !== 1 && figures.length <=1){
-      setnewFigureURL(`Figure00001`)      
+    console.log("out if") 
+    if((figures[0] && Number(figures[0].id.substring(6)) !== 1 && figures.length <=1) || (figures && figures.length ==0)){
+      setnewFigureURL(`Figure00001`)
+      console.log("in if") 
+      
     } else if(figures[0] && Number(figures[0].id.substring(6) ) == 1 && figures.length <=1){
       setnewFigureURL(`Figure00002`)
     } else {
       for(let i = 0 ; i < figures.length-1 ; i++){
+        console.log("in for")
         if(Number(figures[i].id.substring(6))+1 !== Number(figures[i+1].id.substring(6))) {
           setnewFigureURL(`Figure${(Number(figures[i].id.substring(6))+1).toString().padStart(5,"0")}`);
+          console.log("in for and if")
           break;
         }
         
         setnewFigureURL(`Figure${(allItemType+1).toString().padStart(5,"0")}`);
       }
+      console.log(figures)
   }
   },[allItemType,figures])
  
