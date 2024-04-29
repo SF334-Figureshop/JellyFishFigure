@@ -6,12 +6,15 @@ import { db } from '../../config/firebase.jsx';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { useNavigate } from "react-router-dom";
-import { getStorage, ref, uploadBytes , getDownloadURL } from 'firebase/storage';
+import { getStorage, ref, uploadBytes , getDownloadURL , deleteObject} from 'firebase/storage';
 import Snackbar from '@mui/material/Snackbar';
+import { Carousel } from "react-responsive-carousel";
+import DeleteIcon from '@mui/icons-material/Delete';
+import { v4 as uuidv4 } from 'uuid';
+
 
 
 const EditFigure = () => {
@@ -20,7 +23,6 @@ const EditFigure = () => {
     const navigate = useNavigate();
     
     const storage = getStorage();
-    const FigurePicRef = ref(storage,`image/${id}.jpg`)
 
     const [open,setopen] = useState(false)
 
@@ -30,7 +32,9 @@ const EditFigure = () => {
     const [ReleaseDate,setReleaseDate] = useState(null)
     const [Tag,setTag] = useState([])
     const [Description,setDescription] = useState("")
-    const [Image,setImage] = useState("")
+    const [imageUrl, setImageUrl] = useState([]);
+    let [currentImageIndex,setcurrentImageIndex] = useState(0)
+    
 
     useEffect(() => {
         const fetchFigures = async () => {
@@ -39,16 +43,16 @@ const EditFigure = () => {
             const docSnapshot = await getDoc(docRef);
             if(docSnapshot.exists()){
               const data = docSnapshot.data();
-              setImageUrl(data.Image && Array.isArray(data.Image) && data.Image.length > 0 ? data.Image[0] :  
-              data.Image && !Array.isArray(data.Image) ? data.Image: null)
+              setImageUrl(data.Image && Array.isArray(data.Image) && data.Image.length > 0 ? data.Image :  
+              data.Image && !Array.isArray(data.Image) ? data.Image[0]: [])
               setName(data.Name);
               setPrice(data.Price)
               setStock(data.Stock)
               setReleaseDate(dayjs(new Date(data.ReleaseDate.seconds*1000)))
               setTag(data.Tag)
               setDescription(data.Description)
-              setImage(data.Image)
             }
+            
         }
            catch (error) {
                 console.error("Error fetching figures:", error);
@@ -56,40 +60,60 @@ const EditFigure = () => {
         };
 
         fetchFigures();
+        
 
       }, []);
-
-
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [imageUrl, setImageUrl] = useState(null);
 
     const handleClose = () => {
         setopen(false)
     }
 
-    const handleFileChange =  async (event) => {
+    const handleSelectFile = (event) => {
         const file = event.target.files[0];
-        setSelectedFile(file);
-        
-        // Check if a file is selected
+
         if (file) {
             try {
-                await uploadBytes(FigurePicRef, file);
-                const downloadURL = await getDownloadURL(FigurePicRef);
-                setImageUrl(downloadURL);
-                setImageChange(true);
-            } catch (error) {
-                console.error("Error uploading file:", error);
-            }
-        }        
+                setImageUrl(prevImageUrl => [...prevImageUrl,file])
+                event.target.value = null;
 
+            } catch (error) {
+                console.error("Error Selecting file:", error);
+            }
+        }
     }
+
+    const handleDeleteFile = () => {
+
+        if(!(imageUrl[currentImageIndex] instanceof File || imageUrl[currentImageIndex] instanceof Blob)){
+            const httpsReference = ref(storage, imageUrl[currentImageIndex]); 
+            deleteObject(httpsReference)
+        }            
+            const updatedImageUrl = imageUrl.filter((_, i) => i !== currentImageIndex);
+            setImageUrl(updatedImageUrl)
+            if(imageUrl.length == 1){setImageUrl([])}
+    }
+
+
     const handleSubmit = async () => {
         setTag(Tag.map(d => d.trim()))
+
+        const uploadURL = await Promise.all(imageUrl.map(async (image, index) => {
+            
+            if(image instanceof File || image instanceof Blob){
+                const storageRef = ref(storage,`${id}/${uuidv4()}`);
+            
+                await uploadBytes(storageRef, image);
+                const downloadURL = await getDownloadURL(storageRef)
+                return downloadURL;
+                
+            } else {
+                return image
+            }
+          }))
         setopen(true)
         await setDoc(doc(db, "Figure-List", id), {
                     Name: Name,
-                    Image: imageUrl,
+                    Image: uploadURL,
                     Price: Number(Price),
                     Status: Stock>0 ? true : false,
                     Stock: Stock>0? Number(Stock) : 0,
@@ -97,7 +121,7 @@ const EditFigure = () => {
                     Tag: Tag,
                     Description: Description,
                 })
-            ;
+            
         navigate("/Admin");
     }
 
@@ -112,26 +136,51 @@ const EditFigure = () => {
         autoHideDuration={6000}
         onClose={handleClose}
         anchorOrigin={{ vertical:"bottom", horizontal:"right" }}
-        message="Note archived"
+        message="Figure Data Updated"
       />
         
     <FormControl onSubmit={handleSubmit} style={{width:"100%"}}>
-        <img src={imageUrl} style={{maxHeight:"600px", maxWidth:"600px",objectFit:"contain"}} />
+        <div style={{display:"inline-flex"}}>
+        <Carousel className='image-carousel' onChange={(index)=>{
+            setcurrentImageIndex(index);            
+            }}>
+            {
+                imageUrl !== null && imageUrl.map((image, index) => (
+                    <div key={index}>
+                      <img 
+                        src={typeof image === "string"?image :URL.createObjectURL(image)} 
+                        alt={`$Image ${index + 1}`}
+                        style={{maxHeight:"600px", maxWidth:"600px",objectFit:"contain"}}
+                         />
+                    </div>
+                  ))
+            }
+            </ Carousel>
+        </div>
         <br />       
         <div style={{fontFamily:"sans-serif"}}>
-        Figure Image:
+        Figure Image:&nbsp;
         <Button
             component="label"
             variant="contained"
             color='primary'
-            startIcon={<CloudUploadIcon />}
             type="file"
-            onChange={handleFileChange}
+            onChange={handleSelectFile}
             
         >
-            Upload file
+            Select File
             <input style={{display:"none"}} type="file" />
-        </Button>
+        </Button>&nbsp;
+        <Button
+            component="label"
+            variant="outlined"
+            color='primary'
+            startIcon={<DeleteIcon />}
+            onClick={handleDeleteFile}
+            
+        >
+            delete file
+        </Button>&nbsp;
         </div>
         <br />
         <TextField
