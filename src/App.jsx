@@ -31,6 +31,7 @@ function App() {
         <Route path="/checkout" element={<CheckOut />} />
         <Route path="/editfigure/:id" element={<PrivateRoute element={EditFigure} />} />
         <Route path="/imagecapture" element={<ImageCaption/>} />
+        <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
     </>
   );
