@@ -61,18 +61,19 @@ const Admin = () => {
   }, [figures]);
 
   useEffect(()=>{
-    if(figures[0] && Number(figures[0].id.substring(6)) !== 1 || figures.length <1){
-      setnewFigureURL(`Figure1`) 
-      
+    
+    if((figures[0] && Number(figures[0].id.substring(6)) !== 1 && figures.length <=1) || (figures && figures.length ==0)){
+      setnewFigureURL(`Figure00001`)
+    } else if(figures[0] && Number(figures[0].id.substring(6) ) == 1 && figures.length <=1){
+      setnewFigureURL(`Figure00002`)
     } else {
       for(let i = 0 ; i < figures.length-1 ; i++){
         if(Number(figures[i].id.substring(6))+1 !== Number(figures[i+1].id.substring(6))) {
-          setnewFigureURL(`Figure${Number(figures[i].id.substring(6))+1}`);
+          setnewFigureURL(`Figure${(Number(figures[i].id.substring(6))+1).toString().padStart(5,"0")}`);
           break;
         }
-        setnewFigureURL(`Figure${allItemType+1}`);
+        setnewFigureURL(`Figure${(allItemType+1).toString().padStart(5,"0")}`);
       }
-      
   }
   },[allItemType,figures])
  
