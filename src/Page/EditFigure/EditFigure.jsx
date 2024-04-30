@@ -14,6 +14,8 @@ import Snackbar from '@mui/material/Snackbar';
 import { Carousel } from "react-responsive-carousel";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { v4 as uuidv4 } from 'uuid';
+import Popup from 'reactjs-popup';
+import TagGenerator from '../ML/TagGenerator.jsx';
 
 
 
@@ -231,7 +233,7 @@ const EditFigure = () => {
     </LocalizationProvider>
         </div>
         <br />
-
+    <div style={{display:'flex'}}>
     <TextField
         required
         id='Tag'
@@ -245,7 +247,8 @@ const EditFigure = () => {
         }}
         style={{width:"60%"}}
         
-        /><br />
+        /><Popup trigger={<Button variant='contained' color='primary' >Tag Generator by description</Button> } position="top center"><div><TagGenerator des={Description}></TagGenerator></div></Popup>
+        </div><br />
     <TextField
         required
         id='Description'

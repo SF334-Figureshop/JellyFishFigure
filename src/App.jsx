@@ -12,7 +12,7 @@ import Admin from "./Page/Admin/Admin";
 import EditFigure from "./Page/EditFigure/EditFigure";
 import CheckOut from "./Page/Confirm/CheckOut";
 import PrivateRoute from "./Page/Auth/PrivateRoute";
-import ImageCaption from "./Page/ML/ImageCaption";
+import TagGenerator from "./Page/ML/TagGenerator";
 function App() {
   return (
     <>
@@ -30,7 +30,7 @@ function App() {
         <Route path="/editfigure" element={<PrivateRoute element={EditFigure} />} />
         <Route path="/checkout" element={<CheckOut />} />
         <Route path="/editfigure/:id" element={<PrivateRoute element={EditFigure} />} />
-        <Route path="/imagecapture" element={<ImageCaption/>} />
+        <Route path="/tag-generator" element={<TagGenerator/>} />
         <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
     </>
