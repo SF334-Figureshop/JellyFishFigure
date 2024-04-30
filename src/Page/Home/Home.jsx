@@ -7,13 +7,13 @@ import Trending from './Trending/Trending';
 export default function Home() {
   return (
     <>
-      <Box className="home-container">
-        
+      <Container maxWidth="xl" className='home-container'>
         <Typography variant="h1" align="center" gutterBottom>
           Welcome to JellyFish
+          <img src="https://blog.fromjapan.co.jp/en/wp-content/uploads/2019/07/SwimsuitFigures_banner-1.png" alt="JellyFish" className="home-image" />
         </Typography>
-        <img src="https://blog.fromjapan.co.jp/en/wp-content/uploads/2019/07/SwimsuitFigures_banner-1.png" alt="JellyFish" className="home-image" />
-      </Box>
+       
+      </Container>
       <Container maxWidth="lg">
         <Trending />
       </Container>

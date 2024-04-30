@@ -6,7 +6,6 @@ import {
   decreaseQuantity,
 } from "./CartSlice";
 import {
-  TablePagination,
   Table,
   Paper,
   TableHead,
@@ -16,6 +15,10 @@ import {
   TableContainer,
   Button,
   colors,
+  Container,
+  Typography,
+  
+
 } from "@material-ui/core";
 
 export default function Cart() {
@@ -40,7 +43,8 @@ export default function Cart() {
       <h1>Cart Page</h1>
       <Paper elevation={3}>
         {cart.length === 0 ? (
-          <p>Your cart is empty</p>
+        <Typography align="center" variant="h3"><p>Your cart is empty</p></Typography>
+          
         ) : (
           <TableContainer component={Paper}>
             <Table>

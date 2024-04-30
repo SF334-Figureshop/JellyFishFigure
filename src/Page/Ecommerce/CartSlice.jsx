@@ -11,7 +11,7 @@ const cartSlice = createSlice({
     addToCart: (state, action) => {
       const itemExists = state.items.find((item) => item.id === action.payload.id);
       if (itemExists) {
-        if (itemExists.quantity < action.payload.Stock) {
+        if (itemExists.quantity  < action.payload.Stock) {
         itemExists.quantity += 1;
       }
      } else {

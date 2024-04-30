@@ -14,7 +14,7 @@ import { addToCart } from "../Ecommerce/CartSlice";
 export default function FigureDetails() {
   const { id } = useParams();
   const [figure, setFigure] = useState(null);
-  const dispatch = useDispatch(); // Import and initialize the dispatch function
+  const dispatch = useDispatch(); 
   const cartItems = useSelector((state) => state.cart.items);
 
   useEffect(() => {
@@ -78,7 +78,8 @@ export default function FigureDetails() {
             <div className="tags">
               <span className="tag">Tag : {figure.Tag.join(", ")}</span>
             </div>
-            <Button onClick={handleAddToCart}>Add to Cart</Button>
+            {figure.Stock ?<Button variant="contained" onClick={handleAddToCart}>Add to Cart</Button>:<Button disabled variant="contained" color="primary">Out of Stock</Button>}
+            
           </div>
 
           

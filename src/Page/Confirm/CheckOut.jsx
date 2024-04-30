@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { doc, updateDoc, increment } from 'firebase/firestore';
+import { doc, updateDoc, increment ,getDoc} from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import {  removeFromCart } from "../Ecommerce/CartSlice"
 import {
@@ -29,32 +29,36 @@ export default function CheckoutPage() {
 
 const  dispatch = useDispatch();
   const handleCheckout = () => {
-    console.log('Checkout:', {
-      firstName,
-      lastName,
-      email,
-      address,
-      city,
-      postalCode,
-      cart,
-    });
+    console.log('Checkout:', firstName,lastName,email,address,city,postalCode,cart,);
     updateDb();
   };
 
   const updateDb = async () => {
     try {
-        const updatePromises = cart.map((item) => {
-          const figureRef = doc(db, 'Figure-List', item.id);
-          return updateDoc(figureRef, {
+      const updatePromises = cart.map(async (item) => {
+        const figureRef = doc(db, 'Figure-List', item.id);
+        const figureDoc = await getDoc(figureRef);
+        const currentStock = figureDoc.data().Stock;
+        const newStock = currentStock - item.quantity;
+  
+        if (newStock === 0) {
+          await updateDoc(figureRef, {
+            Stock: increment(-item.quantity),
+            Status: false,
+          });
+        } else {
+          await updateDoc(figureRef, {
             Stock: increment(-item.quantity),
           });
-        });
+        }
+      });
+  
         await Promise.all(updatePromises);
         cart.forEach((item) => {
             dispatch(removeFromCart({ id: item.id }));
           });
         } catch (error) {
-          console.error('Error updating stock:', error);
+          console.error('Error', error);
         }
       };
   const calculateTotal = () => {

@@ -1,79 +1,43 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import { useState } from "react";
+import axios from "axios";
 
-const ImageCaption = () => {
-    const [text, setText] = useState('');
-    const [numTag, setNumTag] = useState(5);
-    const [suggestedTags, setSuggestedTags] = useState([]);
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-  
-      try {
-        const response = await axios.post(
-          'https://api.aiforthai.in.th/tagsuggestion',
-          {
-            text: text,
-            numtag: numTag,
+export default function TagGenerator() {
+  const [text, setText] = useState("");
+  const [tag, setTag] = useState([]);
+  const [numtag, setNumtag] = useState(2);
+  const data = `text=${encodeURIComponent(text)}&numtag=${numtag}`; //copy chat for real how can i know that i should use encodeURIcomponent
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const responce = await axios.post(
+        "https://api.aiforthai.in.th/tagsuggestion",
+        data,
+        {
+          headers: {
+            Apikey: "AHlbGBc7xK6eM9zNIyzH1UsMZlbl27fU",
+            "Content-Type": "application/x-www-form-urlencoded",
           },
-          {
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-              'Apikey': 'AHlbGBc7xK6eM9zNIyzH1UsMZlbl27fU',
-            },
-          }
-        );
-  
-        setSuggestedTags(response.data.tags);
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-  
-    return (
-      <div>
-        <h2>Tag Suggestion</h2>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="text">Text:</label>
-            <textarea
-              id="text"
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              rows={4}
-              cols={50}
-              maxLength={5000}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="numTag">Number of Tags:</label>
-            <input
-              type="number"
-              id="numTag"
-              value={numTag}
-              onChange={(e) => setNumTag(e.target.value)}
-              min={1}
-              max={10}
-              required
-            />
-          </div>
-          <button type="submit">Suggest Tags</button>
-        </form>
-        {suggestedTags.length > 0 && (
-          <div>
-            <h3>Suggested Tags:</h3>
-            <ul>
-              {suggestedTags.map((tag, index) => (
-                <li key={index}>
-                  {tag.tag} (Score: {tag.score})
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-    );
+        }
+      );
+      setTag(responce.data.tags);
+      console.log(responce.data.tags);
+    } catch (error) {
+      console.log("Error", error);
+    }
   };
 
-export default ImageCaption;
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input type="text" onChange={(e) => setText(e.target.value)} />
+        <button type="submit">Submit</button>
+      </form>
+      <div>
+        {tag.map((tags, index) => (
+          <div key={index}>{tags.tag}</div>
+        ))}
+      </div>
+    </div>
+  );
+}
