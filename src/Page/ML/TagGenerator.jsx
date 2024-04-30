@@ -7,7 +7,7 @@ export default function TagGenerator(props) {
   const [tag, setTag] = useState([]);
   const [numtag, setNumtag] = useState(2);
   const data = `text=${encodeURIComponent(text)}&numtag=${numtag}`; //copy chat for real how can i know that i should use encodeURIcomponent
- console.log("des su" ,text)
+ console.log("des su" ,tag)
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -38,7 +38,7 @@ export default function TagGenerator(props) {
               required
               variant="outlined"
               multiline
-              rows={20}
+              minRows={20}
               id="Figure Description"
               label="Figure Description"
               value={text}
@@ -54,11 +54,11 @@ export default function TagGenerator(props) {
       </Container>
       <div>
       <Container>
-  {tag.map((tags, index) => (
-    <ListItem key={index} style={{marginTop: "100%"}}>
-      {tags.tag}
-    </ListItem>
-  ))}
+  {
+    <div  style={{marginTop: "100%"}}>
+     {console.log(tag.map((obj,index)=>{`${obj.tag}`+(index === obj.length-1?"" : ",")}).join(""))}
+    </div>
+  }
 </Container>
       </div>
     </div>
