@@ -1,0 +1,50 @@
+.logo {
+    width: 100px;
+    height: 100px;
+}
+
+.Navbar-menu {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+    gap: 3vw;
+    margin-left:5%;
+    margin-right:0%;
+    color:white;
+    padding: 0%;
+    padding-right: 5%;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    font-size: large;
+    font-weight: bold;
+
+}
+
+.Navbar-menu li {
+    text-decoration: none;
+    color: white;
+}
+
+.Navbar-container{
+    background: linear-gradient(89.98deg, rgba(0, 161, 224, 0) 74%, rgba(0, 161, 224, 0.18) 96.67%, rgba(0, 161, 224, 0.18)), #820199;
+    margin: 0%;
+    padding:0%;
+}
+
+.Shopping-cart {
+    margin-left:2%;
+}
+body {
+    margin: 0%;
+    padding: 0%;
+}
+
+.MuiOutlinedInput-root {
+    background-color: #fff; 
+}
+
+.Navbar-menu a {
+    text-decoration: none;
+    color: inherit; 
+  }
