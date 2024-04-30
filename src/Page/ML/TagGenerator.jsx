@@ -56,9 +56,8 @@ export default function TagGenerator(props) {
       <Container>
   {
     <div  style={{marginTop: "100%"}}>
-     {console.log(tag.map((obj,index)=>{`${obj.tag}`+(index === obj.length-1?"" : ",")}).join(""))}
-    </div>
-  }
+     {tag.map((obj, index) => `${obj.tag}${index === tag.length - 1 ? "" : ","}`).join("")}
+  </div>}
 </Container>
       </div>
     </div>
